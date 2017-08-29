@@ -4,7 +4,7 @@ http://www.tecmint.com/how-to-enable-epel-repository-for-rhel-centos-6-5/
 1. use below steps to install Ansible free version
 
 # yum install wget
-# wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm
+# wget wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 # rpm -ivh epel-release-7-9.noarch.rpm
 # yum install ansible -y
 
