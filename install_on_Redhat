@@ -5,6 +5,6 @@ http://www.tecmint.com/how-to-enable-epel-repository-for-rhel-centos-6-5/
 
 # yum install wget
 # wget wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-# rpm -ivh epel-release-7-9.noarch.rpm
+# yum install ./epel-release-latest-*.noarch.rpm
 # yum install ansible -y
 
