@@ -1,0 +1,12 @@
+---
+#<playbook Header Information>
+
+ - name: This is a sample play to execute in database
+   hosts: all
+   vars:
+   become: True
+
+#< Playbook Actual Code>
+   tasks:
+    - name: copy a file from Ansible contro server to database server
+      copy: src=/opt/ansible_code/sample.txt dest=/opt/ owner=root group=root mode=0755
