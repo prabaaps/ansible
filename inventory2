@@ -1,0 +1,8 @@
+ip-172-31-10-189.ap-south-1.compute.internal
+ip-172-31-15-187.ap-south-1.compute.internal
+
+[web]
+ip-172-31-15-187.ap-south-1.compute.internal
+
+[database]
+ip-172-31-10-189.ap-south-1.compute.internal

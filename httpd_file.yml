@@ -1,0 +1,7 @@
+---
+ - hosts: web
+   tasks: 
+    - name: installing httpd server on web group
+      yum: name=httpd state=latest
+      service: name=httpd state=started enabled=yes
+

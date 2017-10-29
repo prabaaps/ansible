@@ -1,0 +1,12 @@
+---
+# This is header
+ - name: I am copying file from control server to ansible clinets
+   hosts: all
+   vars:
+   remote_user: ansibleuser
+   become: True
+   gather_facts: no
+ 
+   tasks:
+    - name: copy file
+      copy: src=/opt/ansible_code/inventory2 dest=/home/ec2-user/ owner=ec2-user group=ec2-user mode=0755
