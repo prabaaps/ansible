@@ -1,0 +1,9 @@
+---
+ - hosts: web
+   become: True
+ 
+   tasks:
+     - name: This is to install httpd
+       yum: name={{ pkg_name }}  state=latest 
+     - name: ensure apache is running (and enable it at boot)
+       service: name={{ pkg_name }} state=started enabled=yes

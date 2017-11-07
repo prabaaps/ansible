@@ -1,0 +1,11 @@
+--- 
+ - name: This is a playbook to print the values which are in facts
+   hosts: web
+   vars: 
+   become: True
+  
+   tasks:
+    - name: To print the value of my remote server ip address
+      debug: var=ansible_default_ipv4.address
+
+    - debug: var=ansible_python_version

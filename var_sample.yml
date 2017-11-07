@@ -1,0 +1,11 @@
+---
+ - name: This is a playbook form sample variable using vars sections
+   hosts: web
+   vars:
+    package: wget
+   become: True
+   
+   tasks: 
+    - name: To call a variable from playbook headar
+      yum: name={{ package }} state=latest
+

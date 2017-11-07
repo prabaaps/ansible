@@ -1,0 +1,17 @@
+---
+- name: This is a playbook to learn the register variable
+  hosts: web
+  vars: 
+  become: True
+
+  tasks: 
+   - name: To print the value of a variable 
+     command: cat /etc/hosts
+     register: hostinfo
+   - debug: var=hostinfo
+      
+   - name: To install apache webserver
+     yum: name=wget state=absent 
+     register: yumoutput
+   - debug: var=yumoutput
+

@@ -1,0 +1,10 @@
+---
+ - name: This is a playbook for when condation
+   hosts: web
+   vars: 
+     package: httpd
+   become: True
+   tasks: 
+    - name: Install httpd on ubuntu
+      apt-get: name=apache2 state=latest
+      when: ansible_distribution == "Ubuntu"

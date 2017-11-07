@@ -1,0 +1,10 @@
+---
+ - name: This is a playbook to pring output
+   hosts: web
+   vars: 
+     myvar: HelloWorld
+   become: True
+  
+   tasks: 
+    - name: we will just print the value inside the myvar
+      debug: var=myvar
