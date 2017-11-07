@@ -1,0 +1,87 @@
+
+
+tasks tree file
+
+tasks install_redhat.yml file
+---
+ - name: install Apache webserver in Redhat Family servers
+   yum: name=httpd state=latest
+
+tasks for install_ubuntu.yml file
+---
+ - name: install ubuntu webserver in ubuntu servers
+   apt-git: name=apache2 state=latest
+
+Copy_Ubuntu.yml
+---
+ - name: Copy index.html file to apache web servers
+   copy: src=/opt/roles/Apache/files/index.html dest=/var/www/html/index.html
+   notify: restart ubuntu myapache
+
+Copy_Redhat.yml
+---
+ - name: Copy index.html file to apache web servers
+   copy: src=/opt/roles/Apache/files/index.html dest=/var/www/html/index.html
+   notify: restart redhat myapache
+
+main.yml
+
+---
+# tasks file for main.yml file
+ 
+ - include_vars: "{{ ansible_os_family }}.yml"
+ 
+ - include: install_redhat.yml
+   when: ansible_distribution == "RedHat"
+
+ - include: install_ubuntu.yml
+   when: ansible_distribution == "Ubuntu"
+
+ - include: Copy_Redhat.yml
+   when: ansible_distribution == "RedHat"
+
+ - include: Copy_Ubuntu.yml
+   when: ansible_distribution == "Ubuntu"
+
+
+
+
+============================================
+
+handlers 
+
+mail.yml
+---
+# handlers file for Apache
+ - name: restart ubuntu myapache
+   service: name=apache2 state=restart
+
+ - name: restart redhat myapache
+   service: name=httpd state=restart
+======================
+
+vars
+redhat.yml
+
+---
+# vars file for Apache
+  package_redhat: httpd
+
+ubuntu.yml
+# vars file for Ubuntu
+  package_ubuntu: apache2
+
+=================================
+
+
+ansible-galaxy man ansible-galaxy --help
+ansible-galaxy init apacha
+yum install tree
+
+defaults
+handlers
+meta  : information
+README.md - detailed explanations of your files
+tasks - Tasks to perform
+tests - 
+vars

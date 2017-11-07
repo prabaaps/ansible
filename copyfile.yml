@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 # This is header
  - name: I am copying file from control server to ansible clinets
    hosts: all
@@ -10,3 +11,16 @@
    tasks:
     - name: copy file
       copy: src=/opt/ansible_code/inventory2 dest=/home/ec2-user/ owner=ec2-user group=ec2-user mode=0755
+=======
+#<playbook Header Information>
+
+ - name: This is a sample play to execute in database
+   hosts: all
+   vars:
+   become: True
+
+#< Playbook Actual Code>
+   tasks:
+    - name: copy a file from Ansible contro server to database server
+      copy: src=/opt/ansible_code/sample.txt dest=/opt/ owner=root group=root mode=0755
+>>>>>>> 3b3e5657cbcf11a4cb7d3ec030c70c105cc3f42e

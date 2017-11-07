@@ -1,0 +1,189 @@
+variables in ansible can be declared in many different ways
+
+1. Using the vars section in playbook
+2. Using the vars_file section in playbook
+3. Provide variables external to playbook
+
+Apart from these we have other methods to define variables
+Inventory Variables
+Registered Variables
+Getting Variables from System
+
+
+declaring variable inside a file 
+
+var_sample.yml
+
+---
+ - name: This is a playbook form sample variable using vars sections
+   hosts: web
+   vars:
+    package: wget
+   become: True
+
+   tasks:
+    - name: To call a variable from playbook headar
+      yum: name={{ package }} state=latest
+
+=====================================================
+
+declaring variables outside of file to remove wget  
+
+var_sample2.yml
+
+---
+ - name: This is a playbook form sample variable using vars sections
+   hosts: web
+   vars_files:
+    - variables.yml
+   become: True
+
+   tasks:
+    - name: To call a variable from playbook headar
+      yum: name={{ app_name }} state=absent
+
+======== Craete variables.yml file=======
+variables.yml
+
+app_name: wget
+
+======================================
+
+variables at the time of command line. 
+=====var-extra.yml ====
+---
+- name: This is a playbook for using the variables for ansible command line
+  hosts: web
+  become: True
+ 
+  tasks: 
+   - name: To install a package by retriebing the value for ansible command line
+     yum: name={{ runtime }} state=latest
+
+==== execute command like below ====
+
+ansible-playbook -i inventory var_extra.yml --extra-vars "runtime=vim"
+
+========================
+== inventory file ==
+[web]
+xx.xx.xx.xx
+[web:vars]
+name=php
+
+[db]
+xx.xx.xx.xx
+
+=== var-inventory.yml ==
+
+---
+- name: This is a playbook for retrieve a value from inventory variable decleration
+  hosts: web
+  vars: 
+  become: True
+
+  tasks: 
+   - name: To install php using inventory variables
+     yum: name={{ name }} state=present
+
+
+=========================================
+
+Register Variable
+
+Often, you'll find that you need to set the value of a variable based on the result of a taks.
+To do so, we create a registered variable using the register clause when invoking a module.
+
+We can use register variable specific to a task
+
+==== Register variable example ===========
+---
+ - name: This is a playbook to pring output
+   hosts: web
+   vars: 
+    myvar=HelloWorld
+   become: True
+  
+   tasks: 
+    - name: we will just print the value inside the myvar
+      debug: var=myvar
+
+======================================================
+
+
+---
+- name: This is a playbook to learn the register variable
+  hosts: web
+  vars: 
+  become: True
+
+  tasks: 
+   - name: To print the value of a variable 
+     command: cat /etc/hosts
+     register: hostinfo
+   - debug: var=hostinfo
+      
+   - name: To install apache webserver
+     yum: name=wget state=absent 
+     register: yumoutput
+   - debug: var=yumoutput
+========================================
+
+Ansible FACTS
+When ansible gathers facts, it connects to the host and queries it for all kinds of details about the host like:
+
+CPU architecture
+Operating System
+IP addresses
+Memory info
+Disk info, and more
+
+This information is stored in variables that are called facts, and they behave just like any other variable.
+
+Facts can be gathered in 2 ways
+1. SETUP module
+2. During playbook execution
+
+The setup module is responsible to collect the ata of any remote system through ansible adhoc mode.
+
+As part of every playbook execution ansible collects the facts of all servers part of the playbook execution. 
+This is why we see gathering facts task part of every plabook execution.
+
+======================================
+
+ansible -i web -m setup
+
+============== gather_facts.yml====
+
+--- 
+ - name: This is a playbook to print the values which are in facts
+   hosts: web
+   vars: 
+   become: True
+  
+   tasks:
+    - name: To print the value of my remote server ip address
+      debug: var=ansible_default_ipv4.address
+
+    - debug: var=ansible_python_version
+
+========================
+
+when condation 
+
+======= when_condation.yml
+---
+- name: This is a playbook for when condation
+  hosts: web
+  vars: 
+    package: httpd
+  become: True
+
+  tasks:
+  - name: to install httpd package if the ansible distribution is Redhat
+    yum: name={{ package }} state=latest
+    when: ansible_distribution == "RedHat"
+
+  - name: to install httpd package if the ansible distribution is Ubuntu
+    apt-get: name=apache2 state=latest
+    when: ansible_distribution == "Ubuntu"
