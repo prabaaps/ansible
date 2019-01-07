@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: installing httpd
+      yum: name=httpd state=latest
+      notify: start httpd
+  
+  handlers:
+    - name: start httpd 
+      action: service name=httpd state=restarted
+
+#      command: yum install wget -y

@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: true
+  gather_facts: no
+  vars: 
+    user_name: valaxy14
+
+#  vars_files: 
+#   -  vars
+  tasks: 
+   - name: creating user
+     user: name={{ user_name }}

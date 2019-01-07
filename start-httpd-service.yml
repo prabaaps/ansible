@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: true
+  gather_facts: no
+
+  tasks:
+    - name: start httpd servcie
+      service: 
+          name: httpd
+          state: started
