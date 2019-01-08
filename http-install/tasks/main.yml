@@ -1,0 +1,10 @@
+---
+# tasks file for http-install
+- name: installing httpd
+  yum: name=httpd state=latest
+  notify: start httpd
+
+- name: copying index.html file
+  copy:
+    src: files/index.html
+    dest: /var/www/html

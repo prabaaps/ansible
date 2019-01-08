@@ -1,0 +1,5 @@
+---
+# handlers file for http-install
+- name: start httpd
+  action: service name=httpd state=restarted
+
