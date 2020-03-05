@@ -1,5 +1,6 @@
 ---
-   hosts: all
+ - hosts: localhost
    tasks:
-    - name: Echo message
-      msg: "Welcome to Ansible World by PRABA"
+   - name: This a test message
+     msg: " This a successfull tesing by PRABA"
+   
