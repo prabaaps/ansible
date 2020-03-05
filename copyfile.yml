@@ -4,5 +4,5 @@
    hosts: all
    tasks:
     - name: Echo message
-      msg: Welcome to Ansible World by PRABA
+      msg: "Welcome to Ansible World by PRABA"
 >>>>>>> 3b3e5657cbcf11a4cb7d3ec030c70c105cc3f42e
